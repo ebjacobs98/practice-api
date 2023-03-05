@@ -67,7 +67,7 @@ module.exports = ({ user }) => {
 
     // render the error page
     res.status(err.status || 500);
-    res.render("error");
+    res.json({ error: err });
   });
 
   app.listen(9000, () => {
