@@ -71,6 +71,30 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json({ id: _id, name, email, topics });
 });
 
+const updateTopic = asyncHandler(async (req, res) => {
+  const { type, score } = req.body;
+  if (!type || !score) {
+    res.status(400);
+    throw new Error("Missing required body fields");
+  }
+
+  const { topics, _id } = await User.findById(req.user._id);
+  const highScore =
+    score < topics[type].fastestTime || topics[type].fastestTime === 0
+      ? score
+      : topics[type].fastestTime;
+
+  await User.findOneAndUpdate(
+    { _id: req.user._id },
+    {
+      [`topics.${type}.questionsAnswered`]: topics[type].questionsAnswered + 3,
+      [`topics.${type}.fastestTime`]: highScore,
+      [`topics.${type}.metrics`]: [...topics[type].metrics, score],
+    }
+  );
+  res.status(200).json({ id: _id, topics });
+});
+
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
@@ -96,4 +120,5 @@ module.exports = {
   updateUser,
   loginUser,
   getCurrentUser,
+  updateTopic,
 };

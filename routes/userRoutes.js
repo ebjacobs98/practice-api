@@ -6,6 +6,7 @@ const {
   updateUser,
   loginUser,
   getCurrentUser,
+  updateTopic,
 } = require("../controllers/userController");
 const { protect } = require("../middleware/auth");
 
@@ -14,5 +15,6 @@ router.route("/").get(getUsers).patch(protect, updateUser);
 router.post("/create", createUser);
 router.post("/login", loginUser);
 router.get("/me", protect, getCurrentUser);
+router.patch("/topic", protect, updateTopic);
 
 module.exports = router;
