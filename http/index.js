@@ -6,6 +6,7 @@ const { errorHandler } = require("../middleware/errorHandler");
 const cors = require("cors");
 const indexRouter = require("../routes/index");
 const userRouter = require("../routes/userRoutes");
+const classRouter = require("../routes/classRoutes");
 
 connect();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/", indexRouter);
 
 app.use("/users", userRouter);
+app.use("/classes", classRouter);
 
 app.use(errorHandler);
 

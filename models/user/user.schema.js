@@ -51,7 +51,7 @@ const topicsSchema = new Schema(
 const UserSchema = new Schema(
   {
     name: { type: String, required: [true, "Must have name"] },
-    email: { type: String, required: [true, "Must have email"], unique: true },
+    email: { type: String, required: [true, "Must have email"] },
     password: { type: String, required: [true, "Must have password"] },
     topics: {
       type: topicsSchema,
