@@ -124,6 +124,7 @@ const updatePendingStudent = asyncHandler(async (req, res) => {
     pendingStudents,
     teacher,
   } = await Class.findById(classId);
+
   if (
     !trueClassId ||
     !requestingUserIdObject ||
