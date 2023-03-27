@@ -12,7 +12,7 @@ const { protect } = require("../middleware/auth");
 
 router.patch("/pendingStudent", protect, updatePendingStudent);
 router.patch("/confirmedStudent", protect, updateConfirmedStudent);
-router.get("/class", protect, getClass);
+router.post("/class", protect, getClass);
 router
   .route("/")
   .post(protect, createClass)
