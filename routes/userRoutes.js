@@ -10,7 +10,7 @@ const {
 } = require("../controllers/userController");
 const { protect } = require("../middleware/auth");
 
-router.route("/").get(getUsers).patch(protect, updateUser);
+router.route("/").post(protect, getUsers).patch(protect, updateUser);
 
 router.post("/create", createUser);
 router.post("/login", loginUser);

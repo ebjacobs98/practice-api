@@ -4,7 +4,17 @@ const bcrypt = require("bcryptjs");
 const { User } = require("../models");
 
 const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({});
+  const { userIds } = req.body;
+
+  if (!userIds) {
+    res.status(400);
+    throw new Error("Missing required body fields");
+  }
+
+  const users = await User.find({ _id: { $in: userIds } }).select(
+    "name topics"
+  );
+
   return res.status(200).json(users);
 });
 
