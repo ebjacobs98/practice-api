@@ -278,9 +278,57 @@ const updateConfirmedStudent = asyncHandler(async (req, res) => {
   }
 });
 
+const updateAssignedTopics = asyncHandler(async (req, res) => {
+  const teacherId = req.user._id.toString();
+  const { classId, action, topic } = req.body;
+  const {
+    _id: trueClassId,
+    teacher,
+    assignedTopics,
+  } = await Class.findById(classId);
+  if (
+    !trueClassId ||
+    !teacherId ||
+    !action ||
+    !teacher ||
+    !assignedTopics ||
+    !topic
+  ) {
+    res.status(400);
+    throw new Error(
+      "Missing required body fields or could not find valid class"
+    );
+  }
+  if (teacherId !== teacher) {
+    res.status(400);
+    throw new Error("Do not have access to edit this class");
+  }
+
+  const filteredArray = assignedTopics.filter((entry) => entry !== topic);
+  if (action === "add") {
+    filteredArray.push(topic);
+  }
+  const updatedClass = await Class.findOneAndUpdate(
+    {
+      _id: trueClassId,
+    },
+    { assignedTopics: filteredArray }
+  );
+  if (updatedClass) {
+    res.status(200).json({
+      _id: updatedClass._id,
+      name: updatedClass.name,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Failed to update topics");
+  }
+});
+
 module.exports = {
   updatePendingStudent,
   updateConfirmedStudent,
+  updateAssignedTopics,
   createClass,
   deleteClass,
   getClasses,
