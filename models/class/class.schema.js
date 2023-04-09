@@ -6,6 +6,7 @@ const ClassSchema = new Schema(
     teacher: { type: String, required: [true, "Must have teacher"] },
     students: { type: [String], default: [], required: true },
     pendingStudents: { type: [String], default: [], required: true },
+    assignedTopics: { type: [String], default: [], required: true },
   },
   { timestamps: true }
 );
