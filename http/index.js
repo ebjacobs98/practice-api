@@ -1,3 +1,8 @@
+// This code was heavily influenced from the following tutorials
+// https://www.youtube.com/watch?v=CvCiNeLnZ00&ab_channel=DaveGray
+// https://www.youtube.com/watch?v=-0exw-9YJBo&ab_channel=TraversyMedia
+// https://www.youtube.com/watch?v=mvfsC66xqj0&t=3307s&ab_channel=TraversyMedia
+
 const express = require("express");
 require("dotenv").config();
 const port = process.env.PORT || 9000;
