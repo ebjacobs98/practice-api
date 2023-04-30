@@ -1,3 +1,8 @@
+// This code, specifically the user auth and JWT code, was influenced from the following tutorials
+// https://www.youtube.com/watch?v=CvCiNeLnZ00&ab_channel=DaveGray
+// https://www.youtube.com/watch?v=-0exw-9YJBo&ab_channel=TraversyMedia
+// https://www.youtube.com/watch?v=mvfsC66xqj0&t=3307s&ab_channel=TraversyMedia
+
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
