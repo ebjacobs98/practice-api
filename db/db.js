@@ -7,10 +7,8 @@ const mongoose = require("mongoose");
 
 const connect = async () => {
   try {
-    mongoose.connect(process.env.MONGO_STRING, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
+    await mongoose.connect(process.env.MONGO_STRING, clientOptions);
   } catch (error) {
     console.log(error);
     process.exit(1);
